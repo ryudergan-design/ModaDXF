@@ -91,6 +91,7 @@ constexpr char kFormatName[] = "ModaDXF Modaris DXF";
 constexpr double kDegreesToRadians = 3.14159265358979323846 / 180.0;
 constexpr double kDefaultScalePercent = 100.0;
 constexpr double kDefaultUnitScaleValue = 1.0;
+constexpr AIReal kImportedStrokeWidth = 0.25f;
 
 enum class DxfScaleMode {
   Original,
@@ -1675,7 +1676,7 @@ ASErr ApplyStrokeOnlyStyle(AIArtHandle art) {
   }
   style.fillPaint = false;
   style.strokePaint = true;
-  style.stroke.width = 1.0f;
+  style.stroke.width = kImportedStrokeWidth;
   style.stroke.color.kind = kFourColor;
   style.stroke.color.c.f.cyan = 0;
   style.stroke.color.c.f.magenta = 0;
