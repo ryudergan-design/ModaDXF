@@ -3,9 +3,10 @@
   id="com.modadxf.illustrator"
   name="ModaDXF"
   version="0.1.4"
+  requires-restart="true"
   type="Plugin">
   <products>
-    <product name="Illustrator" version="30.0" primary="true" />
+    <product name="Illustrator64" version="30.0" platform="win" bit="64" primary="true" />
   </products>
   <author name="Jeferson Conceicao" />
   <description>
@@ -15,17 +16,29 @@
     Abrir/importar um arquivo DXF e selecionar ModaDXF Modaris DXF.
   </ui-access>
   <files>
-    <file name="payload/ModaDXF/ModaDXF.aip"
+    <file source="payload/ModaDXF/ModaDXF.aip"
           destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
-          file-type="ordinary" />
-    <file name="payload/ModaDXF/ModaDxfDiagnostic.exe"
+          file-type="plugin"
+          products="Illustrator64"
+          minVersion="30.0"
+          platform="win" />
+    <file source="payload/ModaDXF/ModaDxfDiagnostic.exe"
           destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
-          file-type="ordinary" />
-    <file name="payload/ModaDXF/README.md"
+          file-type="ordinary"
+          products="Illustrator64"
+          minVersion="30.0"
+          platform="win" />
+    <file source="payload/ModaDXF/README.md"
           destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
-          file-type="ordinary" />
-    <file name="payload/ModaDXF/LICENSE.rtf"
+          file-type="ordinary"
+          products="Illustrator64"
+          minVersion="30.0"
+          platform="win" />
+    <file source="payload/ModaDXF/LICENSE.rtf"
           destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
-          file-type="ordinary" />
+          file-type="ordinary"
+          products="Illustrator64"
+          minVersion="30.0"
+          platform="win" />
   </files>
 </macromedia-extension>
