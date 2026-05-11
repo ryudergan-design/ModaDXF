@@ -1,0 +1,7 @@
+#define kMySDKPluginName "ModaDXF"
+#define PIPL_PLUGIN_NAME kMySDKPluginName
+
+#include <windows.h>
+#include "VersionInfo.rc"
+
+plugin pipl "plugin.pipl"

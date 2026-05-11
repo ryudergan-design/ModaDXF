@@ -1,0 +1,97 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package
+    Name="Moda DXF"
+    Manufacturer="Jeferson Conceição"
+    Version="0.1.4"
+    ProductCode="*"
+    UpgradeCode="7C1C2601-92D9-4830-8916-30F885611759"
+    Scope="perUser">
+
+    <MediaTemplate EmbedCab="yes" />
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="Uma versao mais nova do Moda DXF ja esta instalada." />
+
+    <Property Id="ARPCONTACT" Value="Jeferson Conceição" />
+    <Property Id="ILLUSTRATORROOT" Value="C:\Program Files\Adobe" Secure="yes" />
+    <Property Id="ILLUSTRATORVERSION" Value="__AUTO__" Secure="yes" />
+    <Property Id="ARPPRODUCTICON" Value="ModaDXFIcon.ico" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Instalação concluída. O Moda DXF foi adicionado ao Illustrator e está pronto para abrir Moldes em DXF. O resumo da instalação pode abrir agora." />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Abrir a documentação da instalação" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+    <Property Id="WixShellExecTarget" Value="[#InstallSummaryFile]" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="assets\ModaDXF-Banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="assets\ModaDXF-Dialog.bmp" />
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="ILLUSTRATORPLUGINPATH" />
+    <Icon Id="ModaDXFIcon.ico" SourceFile="assets\ModaDXF.ico" />
+
+    <Feature Id="MainFeature" Title="Moda DXF" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <CustomAction
+      Id="OpenInstallSummary"
+      BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)"
+      DllEntry="WixShellExec"
+      Impersonate="yes"
+      Return="ignore" />
+
+    <UI>
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="OpenInstallSummary" Condition="WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 AND NOT Installed" />
+    </UI>
+  </Package>
+
+  <Fragment>
+    <StandardDirectory Id="AppDataFolder">
+      <Directory Id="AdobeFolder" Name="Adobe">
+        <Directory Id="IllustratorFolder" Name="Adobe Illustrator 30 Settings">
+          <Directory Id="IllustratorLocaleFolder" Name="pt_BR">
+            <Directory Id="IllustratorArchFolder" Name="x64">
+              <Directory Id="ILLUSTRATORPLUGINPATH" Name="Plug-ins">
+                <Directory Id="INSTALLFOLDER" Name="ModaDXF" />
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="PluginComponent" Guid="86A5E8E8-1E35-4C2A-8C9B-E7F0E40CE4B8">
+        <File Id="PluginFile" Source="..\bin\x64\Release\ModaDXF.aip" Name="ModaDXF.aip" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="PluginFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="DiagnosticComponent" Guid="9E9CB645-0611-45CA-9636-FB48E923F731">
+        <File Id="DiagnosticFile" Source="..\bin\x64\Release\ModaDxfDiagnostic.exe" Name="ModaDxfDiagnostic.exe" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="DiagnosticFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="InstallPsComponent" Guid="ED0F67A9-27E2-4D3B-8E32-8C3149311A32">
+        <File Id="InstallPsFile" Source="..\installer\Install-ModaDXFNative.ps1" Name="Install-ModaDXFNative.ps1" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="InstallPsFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="UninstallPsComponent" Guid="504B0363-2C78-4571-970E-8A389A289209">
+        <File Id="UninstallPsFile" Source="..\installer\Uninstall-ModaDXFNative.ps1" Name="Uninstall-ModaDXFNative.ps1" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="UninstallPsFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="ReadmeComponent" Guid="97AFAD15-B418-4A43-A0E4-4E08E66BC29E">
+        <File Id="ReadmeFile" Source="..\README.md" Name="README.md" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="ReadmeFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="InstallSummaryComponent" Guid="03D04A11-5EA3-49F8-ABF3-32A3B1B92C90">
+        <File Id="InstallSummaryFile" Source="INSTALLATION-LOG.txt" Name="INSTALLATION-LOG.txt" />
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF\Files" Name="InstallSummaryFile" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="UserProfileCleanupComponent" Guid="7CF9412D-BB1C-489C-9401-7EA16C7813CD">
+        <RegistryValue Root="HKCU" Key="Software\ModaDXF" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+        <RemoveFolder Id="RemoveIllustratorPluginPath" Directory="ILLUSTRATORPLUGINPATH" On="uninstall" />
+        <RemoveFolder Id="RemoveIllustratorArchFolder" Directory="IllustratorArchFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveIllustratorLocaleFolder" Directory="IllustratorLocaleFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveIllustratorFolder" Directory="IllustratorFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveAdobeFolder" Directory="AdobeFolder" On="uninstall" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

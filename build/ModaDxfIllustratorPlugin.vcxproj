@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{522F3B85-F686-4F32-9442-37E1829616B7}</ProjectGuid>
+    <RootNamespace>ModaDxfIllustratorPlugin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(AI_SDK_ROOT)\samplecode\common\win\AIPluginCommon.props" Condition="exists('$(AI_SDK_ROOT)\samplecode\common\win\AIPluginCommon.props')" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\obj\$(Platform)\$(Configuration)\ModaDxfIllustratorPlugin\</IntDir>
+    <TargetName>ModaDXF</TargetName>
+    <TargetExt>.aip</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <PythonExe Condition="'$(PythonExe)' == ''">python</PythonExe>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>8Bytes</StructMemberAlignment>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ForcedIncludeFiles>pragma.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;WIN_ENV;WINNT_ENV;MODADXF_WITH_ILLUSTRATOR_SDK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\core;$(ProjectDir)..\src\illustrator;$(AI_SDK_ROOT)\samplecode\common\includes;$(AI_SDK_ROOT)\samplecode\common\win;$(AI_SDK_ROOT)\illustratorapi\adm;$(AI_SDK_ROOT)\illustratorapi\ate;$(AI_SDK_ROOT)\illustratorapi\illustrator;$(AI_SDK_ROOT)\illustratorapi\illustrator\actions;$(AI_SDK_ROOT)\illustratorapi\illustrator\legacy;$(AI_SDK_ROOT)\illustratorapi\pica_sp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(AI_SDK_ROOT)\samplecode\common\win;$(AI_SDK_ROOT)\samplecode\common\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>$(OutDir)ModaDXF.aip</OutputFile>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ModuleDefinitionFile>$(AI_SDK_ROOT)\samplecode\common\win\PluginMain.def</ModuleDefinitionFile>
+      <TargetMachine>MachineX64</TargetMachine>
+      <LargeAddressAware>true</LargeAddressAware>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <ImportLibrary>$(IntDir)ModaDXF.lib</ImportLibrary>
+    </Link>
+    <PreBuildEvent>
+      <Command>cd /d "$(ProjectDir)" &amp;&amp; "$(PythonExe)" "$(AI_SDK_ROOT)\tools\pipl\create_pipl.py" -input "[{\"name\":\"ModaDXF\",\"entry_point\":\"PluginMain\"}]"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\core\DxfParser.cpp" />
+    <ClCompile Include="..\src\core\RenderPlan.cpp" />
+    <ClCompile Include="..\src\illustrator\ModaDxfImportFilter.cpp" />
+    <ClCompile Include="..\src\illustrator\ModaDxfIllustratorPlugin.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\samplecode\common\source\AppContext.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\samplecode\common\source\IllustratorSDK.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\samplecode\common\source\Main.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\samplecode\common\source\Plugin.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\samplecode\common\source\Suites.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\illustratorapi\ate\IText.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\illustratorapi\ate\IThrowException.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\illustratorapi\illustrator\IAIArtboards.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\illustratorapi\illustrator\IAIFilePath.cpp" />
+    <ClCompile Include="$(AI_SDK_ROOT)\illustratorapi\illustrator\IAIUnicodeString.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ModaDxfPlugin.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\core\DxfParser.h" />
+    <ClInclude Include="..\src\core\DxfTypes.h" />
+    <ClInclude Include="..\src\core\RenderPlan.h" />
+    <ClInclude Include="..\src\illustrator\ModaDxfImportFilter.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="CheckIllustratorSdk" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(AI_SDK_ROOT)' == ''" Text="Defina AI_SDK_ROOT apontando para o Adobe Illustrator SDK antes de compilar o .aip." />
+    <Error Condition="!exists('$(AI_SDK_ROOT)\illustratorapi\illustrator\AIFileFormat.h')" Text="AI_SDK_ROOT nao aponta para um Illustrator SDK valido." />
+  </Target>
+</Project>

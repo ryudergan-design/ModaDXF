@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<macromedia-extension
+  id="com.modadxf.illustrator"
+  name="ModaDXF"
+  version="0.1.4"
+  type="Plugin">
+  <products>
+    <product name="Illustrator" version="30.0" primary="true" />
+  </products>
+  <author name="Jeferson Conceicao" />
+  <description>
+    Importador DXF para Illustrator focado em moldes de moda e agrupamentos Modaris.
+  </description>
+  <ui-access>
+    Abrir/importar um arquivo DXF e selecionar ModaDXF Modaris DXF.
+  </ui-access>
+  <files>
+    <file name="payload/ModaDXF/ModaDXF.aip"
+          destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
+          file-type="ordinary" />
+    <file name="payload/ModaDXF/ModaDxfDiagnostic.exe"
+          destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
+          file-type="ordinary" />
+    <file name="payload/ModaDXF/README.md"
+          destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
+          file-type="ordinary" />
+    <file name="payload/ModaDXF/LICENSE.rtf"
+          destination="$userhome/AppData/Roaming/Adobe/Adobe Illustrator 30 Settings/pt_BR/x64/Plug-ins/ModaDXF"
+          file-type="ordinary" />
+  </files>
+</macromedia-extension>

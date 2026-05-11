@@ -1,0 +1,40 @@
+# Build outputs
+bin/
+obj/
+dist/
+release/
+*.msi
+*.exe
+*.aip
+*.zxp
+*.zip
+*.pdb
+*.lib
+*.exp
+*.iobj
+*.ipdb
+
+# Local/private material
+certs/
+logs/
+vendor/
+*.pfx
+*.p12
+*.pvk
+*.cer
+*.password.txt
+*.thumbprint.txt
+
+# Test/sample files
+*.DXF
+*.dxf
+testes*/
+tests/
+fixtures/
+
+# Local IDE/cache
+.vs/
+.vscode/
+*.user
+*.suo
+*.tlog

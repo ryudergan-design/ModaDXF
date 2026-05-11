@@ -1,0 +1,34 @@
+﻿Moda DXF - Documentação
+
+Autor: Jeferson Conceição
+
+Instalação concluída.
+
+O Moda DXF foi adicionado ao Adobe Illustrator deste usuário.
+Ele prepara o Illustrator para abrir Moldes em DXF com agrupamentos mais organizados e logs simples do processo.
+
+Como usar
+
+1. Feche e abra o Adobe Illustrator.
+2. Abra um Molde em DXF.
+3. Quando o Illustrator perguntar o formato, escolha "ModaDXF Modaris DXF".
+4. Aguarde a janela "ModaDXF processando Molde".
+5. Ao terminar, confira os grupos criados no Illustrator.
+
+Logs
+
+Os logs ficam em:
+
+  %LOCALAPPDATA%\ModaDXF\logs
+
+Eles mostram:
+
+- quando o Moda DXF foi carregado;
+- quando a importação começou;
+- quais opções foram usadas;
+- quantos grupos, camadas, textos e pontos foram reconstruídos;
+- se houve aviso ou falha durante o processo.
+
+Observação
+
+Se a janela do Moda DXF não aparecer, provavelmente o Molde foi aberto pelo importador padrão do Illustrator. Abra novamente e escolha "ModaDXF Modaris DXF".
